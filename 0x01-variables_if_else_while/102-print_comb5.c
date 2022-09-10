@@ -1,41 +1,33 @@
 #include <stdio.h>
 
 /**
- *main - print a num pair from 00-99 no dup
- *Return: Always 0 (Success)
+ * main - Prints all possible combinations of two two-digit numbers,
+ *        ranging from 0-99, separated by a comma followed by a space.
+ *
+ * Return: Always 0 (success)
  */
-
 int main(void)
 {
-	int tens;
-	int ones;
-	int a;
-	int b;
+	int num1, num2;
 
-	for (tens = '0'; tens <= '9'; tens++) /*print first two digit combo*/
+	for (num1 = 0; num1 <= 98; num1++)
 	{
-		for (ones = '0'; ones <= '9'; ones++)
+		for (num2 = num1 + 1; num2 <= 99; num2++)
 		{
-			for (a = tens; a <= '9'; a++) /*print second of pair*/
-			{
-				for (b = ones + 1; b <= '9'; b++)
-				{
-					putchar(tens);
-					putchar(ones);
-					putchar(' ');
-					putchar(a);
-					putchar(b);
+			putchar((num1 / 10) + '0');
+			putchar((num1 % 10) + '0');
+			putchar(' ');
+			putchar((num2 / 10) + '0');
+			putchar((num2 % 10) + '0');
 
-					if (!((tens == '9' && ones == '9') && (a == '9' && b == '9')))
-					{
-						putchar(',');
-						putchar(' ');
-					}
-				}
-				b = '1';
-			}
+			if (num1 == 98 && num2 == 99)
+				continue;
+
+			putchar(',');
+			putchar(' ');
 		}
 	}
+
 	putchar(10);
 
 	return (0);
