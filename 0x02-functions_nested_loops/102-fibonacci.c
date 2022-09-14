@@ -21,7 +21,7 @@ int main(void)
 		fib2 = sum;
 
 		if (count == 49)
-			printf(10);
+			printf("\n");
 		else
 			printf(", ");
 	}
