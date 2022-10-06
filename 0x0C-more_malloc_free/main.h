@@ -1,11 +1,13 @@
 #ifndef MAIN_H_
 #define MAIN_H_
+#define ERR_MSG "Error"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
 
+int _isdigit(char *b);
 int _putchar(char c);
 void simple_print_buffer(int *buffer, unsigned int size);
 void *malloc_checked(unsigned int b);
