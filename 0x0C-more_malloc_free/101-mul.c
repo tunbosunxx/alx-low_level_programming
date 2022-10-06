@@ -1,44 +1,92 @@
 #include "main.h"
 
-
 /**
- * main - takes two numbers as arguments and outputs the product.
- * @argc: the number of arguments including name of program.
- * @argv: an array of arguments
- *
- * Return: 0 if successful.
- */
-int main(int argc, char *argv[])
+ * _puts - prints a string, followed by a new line,
+ * @str: pointer to the string to print
+ * Return: void
+*/
+
+
+void _puts(char *str)
 {
-	int i;
-	if (argc != 3)
-	{
-		for (i = 0; ERR_MSG[i] != '\0'; i++)
-			_putchar(ERR_MSG[i]);
-		_putchar(10);
-		exit(98);
-	}
-	if (_isdigit(argv[1]) == 0)
-		printf("%s\n", argv[1]);
-		
-	return (0);
+int i = 0;
+while (str[i])
+{
+	_putchar(str[i]);
+	i++;
+}
+
 }
 
 /**
- * isdigit - checks if string is a number or not
- * @s: the string to be checked
- *
- * Return: 1 if true, else 0.
+ * _atoi - convert a string to an integer.
+ * @s: char type string
+ * Return: integer converted
  */
 
-int _isdigit(char *b)
+int _atoi(const char *s)
 {
-	while (*b)
+	int sign = 1;
+	unsigned long int resp = 0, fNum, i;
+
+	for (fNum = 0; !(s[fNum] >= 48 && s[fNum] <= 57); fNum++)
 	{
-		if (*b < 48 || *b > 57)
-			return (1);
-		s++;
+		if (s[fNum] == '-')
+		{
+			sign *= -1;
+		}
 	}
-	return (0);
+
+	for (i = fNum; s[i] >= 48 && s[i] <= 57; i++)
+	{
+		resp *= 10;
+		resp += (s[i] - 48);
+	}
+
+	return (sign * resp);
+}
+
+/**
+ * print_int - prints an integer.
+ * @n: int
+ * Return: 0
+ */
+
+void print_int(unsigned long int n)
+{
+
+unsigned  long int divisor = 1, i, resp;
+
+for (i = 0; n / divisor > 9; i++, divisor *= 10)
+;
+
+for (; divisor >= 1; n %= divisor, divisor /= 10)
+{
+	resp = n / divisor;
+	_putchar('0' + resp);
+}
+
+}
+
+/**
+ * main - print the result of the multiplication, followed by a new line
+ * @argc: int
+ * @argv: list
+ * Return: 0
+ */
+
+int main(int argc, char const *argv[])
+{
+(void)argc;
+
+if (argc != 3)
+{
+	_puts("Error ");
+	exit(98);
+}
+print_int(_atoi(argv[1]) * _atoi(argv[2]));
+_putchar('\n');
+
+return (0);
 }
 
