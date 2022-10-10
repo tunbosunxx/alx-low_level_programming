@@ -1,0 +1,1 @@
+__TYPEDEF && STRUCT__
