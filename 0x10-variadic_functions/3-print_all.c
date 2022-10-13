@@ -1,82 +1,49 @@
 #include "variadic_functions.h"
-/**
- * print_c - Prints char
- * @list: arguments
- * Return: void
- */
-void print_c(va_list list)
-{
-	printf("%c", (char)va_arg(list, int));
-}
-/**
- * print_d - Prints digit
- * @list: arguments
- * Return: void
- */
-void print_d(va_list list)
-{
-	printf("%d", va_arg(list, int));
-}
-/**
- * print_f - Prints float
- * @list: arguments
- * Return: void
- */
-void print_f(va_list list)
-{
-	printf("%f", (float)va_arg(list, double));
-}
-/**
- * print_str - Prints str
- * @list: arguments
- * Return: void
- */
-void print_s(va_list list)
-{
-	char *str = va_arg(list, char *);
-
-	if (str)
-	{
-		printf("%s", str);
-		return;
-	}
-	printf("(nil)");
-}
 
 /**
- * print_all - Prints anything
- * @format: format to print
- * Return: void
+ * print_all - prints all
+ * @format: param
  */
 void print_all(const char * const format, ...)
 {
-	va_list list;
-	char *separator = "";
-	int i = 0, j;
+	va_list valist;
+	unsigned int i = 0, j, k = 0;
+	char *str;
+	const char t_arg[] = "cifs";
 
-	filter filt[] = {
-	    {'c', print_c},
-	    {'i', print_d},
-	    {'f', print_f},
-	    {'s', print_s}
-	};
-	va_start(list, format);
+	va_start(valist, format);
 	while (format && format[i])
 	{
 		j = 0;
-		while (j < 4)
+		while (t_arg[j])
 		{
-			if (format[i] == filt[j].fmt)
+			if (format[i] == t_arg[j] && k)
 			{
-				printf("%s", separator);
-				filt[j].f(list);
-				separator = ", ";
-			}
-			j++;
+				printf(", ");
+				break;
+			} j++;
 		}
-		i++;
+		switch (format[i])
+		{
+		case 'c':
+			printf("%c", va_arg(valist, int)), k = 1;
+			break;
+		case 'i':
+			printf("%d", va_arg(valist, int)), k = 1;
+			break;
+		case 'f':
+			printf("%f", va_arg(valist, double)), k = 1;
+			break;
+		case 's':
+			str = va_arg(valist, char *), k = 1;
+			if (!str)
+			{
+				printf("(nil)");
+				break;
+			}
+			printf("%s", str);
+			break;
+		} i++;
 	}
-	printf("\n");
-	va_end(list);
+	printf("\n"), va_end(valist);
 }
-/* hello */
